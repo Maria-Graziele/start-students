@@ -1,0 +1,15 @@
+# FRONTEND
+frontend/node_modules
+frontend/.env
+frontend/dist
+frontend/build
+
+# BACKEND
+backend/target
+backend/.env
+backend/*.log
+
+# IDE / SISTEMA
+.idea
+.vscode
+.DS_Store
