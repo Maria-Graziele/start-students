@@ -1,0 +1,37 @@
+<div class="login-background">
+<div class="login-box">
+  <h1>Start Students</h1>
+  <p class="subtitle">Faça seu login para continuar</p>
+
+  <form (ngSubmit)="onSubmit($event)">
+    <label>Usuário</label>
+    <div class="input-group">
+      <img src="/assets/icons/user.svg" class="icon" alt="ícone de usuário">
+      <input
+        type="text"
+        [(ngModel)]="username"
+        (blur)="verificarCampos()"
+        name="username"
+        placeholder="usuario123">
+    </div>
+    <span class="error" [class.show]="!usuarioValido && username.length > 0">
+      Mínimo 8 caracteres com letras e números
+    </span>
+
+    <label>Senha</label>
+    <div class="input-group">
+      <img src="/assets/icons/block.svg" class="icon" alt="ícone de bloqueio">
+      <input
+        type="password"
+        [(ngModel)]="password"
+        (blur)="verificarCampos()"
+        name="password"
+        placeholder="••••••••">
+    </div>
+    <span class="error" [class.show]="!senhaValida && password.length > 0">
+      Mínimo 8 caracteres com letras e números
+    </span>
+
+    <button type="submit" [disabled]="!usuarioValido || !senhaValida">Acessar</button>
+  </form>
+</div>

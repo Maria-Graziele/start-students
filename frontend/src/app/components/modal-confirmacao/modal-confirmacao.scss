@@ -1,0 +1,116 @@
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeInd {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-container {
+  background: #fff;
+  border-radius: 12px;
+  padding: 0;
+  max-width: 450px;
+  width: 90%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-content {
+  padding: 32px;
+}
+
+.modal-titulo {
+  margin: 0 0 16px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #222;
+}
+
+.modal-mensagem {
+  margin: 0 0 28px 0;
+  font-size: 15px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.modal-acoes {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.btn-cancelar,
+.btn-excluir {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-cancelar {
+  background: #f5f5f5;
+  color: #444;
+  border: 1px solid #e0e0e0;
+
+  &:hover {
+    background: #eeeeee;
+  }
+}
+
+.btn-excluir {
+  background: #d32f2f;
+  color: #fff;
+
+  &:hover {
+    background: #b71c1c;
+  }
+}
+
+// Responsivo
+@media (max-width: 768px) {
+  .modal-container {
+    max-width: 90%;
+  }
+
+  .modal-content {
+    padding: 24px;
+  }
+
+  .modal-acoes {
+    flex-direction: column-reverse;
+    gap: 8px;
+
+    button {
+      width: 100%;
+    }
+  }
+}

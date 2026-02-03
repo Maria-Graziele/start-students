@@ -1,0 +1,35 @@
+body, html {
+  height: 100%;
+  width: 100%;
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+nav {
+  background: #f7fafc;
+  padding: 20px;
+  border-bottom: 1px solid #e2e8f0;
+
+  a {
+    text-decoration: none;
+    color: #2d3748;
+    font-weight: 600;
+    transition: color 0.2s ease;
+
+    &:hover,
+    &.active {
+      color: #e53e3e;
+    }
+  }
+}
+
+router-outlet {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

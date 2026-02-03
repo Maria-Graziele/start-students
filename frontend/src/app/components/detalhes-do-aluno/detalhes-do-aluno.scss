@@ -1,0 +1,226 @@
+// Container principal
+.app-container {
+  min-height: 100vh;
+  background-color: transparent; // fundo transparente
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+}
+
+// Card do aluno
+.student-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 32px;
+  max-width: 100%;              // card maior
+  width: 920px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+// Cabeçalho
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+
+.botao-voltar-topo {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+}
+
+.botao-voltar-topo:hover {
+  opacity: 0.7;
+}
+
+.botao-voltar-topo img {
+  width: 20px;
+  height: 20px;
+}
+
+.page-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+// Foto do aluno
+.photo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.photo-wrapper { //Container que envolve a foto do aluno, controla tamanho, bordas, posição e estilo.
+  width: 140px;
+  height: 170px;
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.photo-placeholder img,
+.photo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-text {
+  position: absolute;
+  bottom: -22px;
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+//Formulário
+.student-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+
+
+// Grupo do campo
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 12px;
+  width: 18px;
+  height: 18px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.form-input {
+  width: 100%;
+  min-width: 0;
+  padding: 14px 14px 14px 42px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  color: #111827;
+  background-color: #f9fafb;
+  transition: all 0.2s;
+}
+
+.form-input:disabled {
+  cursor: not-allowed;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  background-color: #ffffff;
+}
+
+// Status
+.status-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 14px 14px 42px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background-color: #f9fafb;
+  position: relative;
+}
+
+.status-container::before {
+  content: '';
+  position: absolute;
+  left: 12px;
+  width: 18px;
+  height: 18px;
+  opacity: 0.5;
+}
+
+.status-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.status-active {
+  background-color: #10b981;
+}
+
+.status-inactive {
+  background-color: #f1df4f;
+}
+
+.status-text {
+  font-size: 0.9rem;
+  color: #111827;
+}
+
+.btn-voltar {
+  width: 100%;
+  padding: 14px;
+  margin-top: 12px;
+  background-color: #f3f4f6;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-voltar:hover {
+  background-color: #e5e7eb;
+}
+
+.btn-voltar:active {
+  background-color: #d1d5db;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.loading p {
+  font-size: 1rem;
+  color: #6b7280;
+}
