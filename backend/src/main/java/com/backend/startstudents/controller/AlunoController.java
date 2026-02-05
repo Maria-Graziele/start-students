@@ -1,12 +1,14 @@
 package com.backend.startstudents.controller;
 
-import com.backend.startstudents.model.Aluno;
-import com.backend.startstudents.repository.AlunoRepository;
+import com.backend.startstudents.dto.AlunoRequestDTO;
+import com.backend.startstudents.dto.AlunoResponseDTO;
+import com.backend.startstudents.service.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
+import java.net.URL;
 import java.util.List;
 
 @RestController // Indica que esta classe expõe endpoints REST, retorna JSON por padrão
@@ -14,61 +16,53 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200") // Habilita CORS para o frontend local
 public class AlunoController {
 
-    @Autowired // Injeta a dependência do repositório
-    private AlunoRepository alunoRepository;;
+    @Autowired
+    private AlunoService alunoService;
 
-    // GET - Listar todos os alunos
     @GetMapping
-    public List<Aluno> listarTodos() {
-        return alunoRepository.findAll();
-    } // Retorna todos os alunos do banco
-
-    // GET - Buscar aluno por ID
-    @GetMapping("/{id}")
-    public ResponseEntity<Aluno> buscarPorId(@PathVariable Long id) {
-        // Busca pelo ID e retorna 200 OK com o aluno se existir, senão 404 Not Found
-        return alunoRepository.findById(id)
-                .map(ResponseEntity::ok) // constrói 200 OK com o body
-                .orElse(ResponseEntity.notFound().build()); // 404 Not Found sem body
+    public ResponseEntity<List<AlunoRequestDTO>> listarTodos() {
+        List<AlunoResponseDTO> alunos = alunoService.listarTodos();
+        return ResponseEntity.ok(alunos);
     }
 
-    // POST - Criar novo aluno
+    @GetMapping
+    public ResponseEntity<AlunoResponseDTO> buscarPorId(@PathVariable Long id) {
+        AlunoResponseDTO aluno = alunoService.buscarPorId(id);
+        return ResponseEntity.ok(aluno);
+    }
+
     @PostMapping
-    public ResponseEntity<Aluno> criar(@RequestBody Aluno aluno) {
-        // Persiste o aluno recebido no corpo da requisição
-        Aluno salvo = alunoRepository.save(aluno);
-        return ResponseEntity
-                .created(URI.create("/api/alunos/" + salvo.getId()))
-                .body(salvo);
+    public ResponseEntity<AlunoResponseDTO> criar(@Validated @RequestBody AlunoRequestDTO dto) {
+        AlunoResponseDTO alunoCriado = alunoService.criar(dto);
+        URL location = URL.create("/api/alunos/" + alunoCriado.getId());
+        return ResponseEntity.created(location).body(alunoCriado);
     }
 
-    // PUT - Atualizar aluno
     @PutMapping("/{id}")
-    public ResponseEntity<Aluno> atualizar(@PathVariable Long id, @RequestBody Aluno alunoAtualizado) {
-        // Busca o aluno existente; se existir, atualiza campos e salva; se não, retorna 404
-        return alunoRepository.findById(id)
-                .map(aluno -> { //Atualiza campos permitidos
-                    aluno.setNome(alunoAtualizado.getNome());
-                    aluno.setStatus(alunoAtualizado.getStatus());
-                    aluno.setCpf(alunoAtualizado.getCpf());
-                    aluno.setEmail(alunoAtualizado.getEmail());
-                    aluno.setTelefone(alunoAtualizado.getTelefone());
-                    aluno.setMatricula(alunoAtualizado.getMatricula());
-                    aluno.setAtivo(alunoAtualizado.getAtivo());
-                    Aluno salvo = alunoRepository.save(aluno);
-                    return ResponseEntity.ok(salvo);
-                })
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<AlunoResponseDTO> atualizar(
+            @PathVariable Long id,
+            @Validated @RequestBody AlunoRequestDTO dto) {
+
+        AlunoResponseDTO alunoAtualizado = alunoService.atualizar(id, dto);
+        return ResponseEntity.ok(alunoAtualizado);
     }
 
-    // DELETE - Deletar aluno
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        // Verifica se existe antes de tentar deletar para retornar o status correto
-        if (alunoRepository.existsById(id)) {
-            alunoRepository.deleteById(id);
-            return ResponseEntity.noContent().build(); // 204 No Content deleção bem-sucedida
-        }
-        return ResponseEntity.notFound().build(); // 404 se não encontrou o recurso
+    public ResponseEntity<void> deletar(@PathVariable Long id) {
+        alunoService.deletar(id);
+        return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/status/{status}")
+    public ResponseEntity<List<AlunoResponseDTO>> listarPorStatus(@PathVariable String status) {
+        List<AlunoResponseDTO> alunos = alunoService.listarPorStatus(status);
+        return ResponseEntity.ok(alunos);
+    }
+
+    @GetMapping("/ativo/{ativo}")
+    public ResponseEntity<List<AlunoResponseDTO>> listarPorAtivo(@PathVariable Boolean ativo) {
+        List<AlunoResponseDTO> alunos = alunoService.listarPorAtivo(ativo);
+        return ResponseEntity.ok(alunos);
+    }
+
 }

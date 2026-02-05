@@ -62,6 +62,21 @@ label {
     z-index: 1;
   }
 
+  .icon-eye {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    z-index: 2;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block ;
+  }
+
+
   input {
     width: 100%;
     padding: 15px 15px 15px 50px;
@@ -115,4 +130,29 @@ button {
   &.show {
     display: block;
   }
+}
+.password-group {
+  position: relative;
+.toggle-password {
+position: absolute;
+right: 15px;
+top: 50%;
+transform: translateY(-50%);
+width: 20px;
+height: 20px;
+min-width: 20px;
+min-height: 20px;
+cursor: pointer;
+z-index: 10;
+}
+
+input {
+padding-right: 45px !important; // espaço para o ícone
+
+// Remove ícone nativo do navegador
+&::-ms-reveal,
+&::-ms-clear {
+display: none;
+}
+}
 }

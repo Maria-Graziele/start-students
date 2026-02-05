@@ -9,27 +9,36 @@
       <img src="/assets/icons/user.svg" class="icon" alt="ícone de usuário">
       <input
         type="text"
+        maxlength="8"
         [(ngModel)]="username"
+        (keydown.space)="$event.preventDefault()"
+        (input)="normalizarUsuario(); verificarCampos()"
         (blur)="verificarCampos()"
-        name="username"
-        placeholder="usuario123">
+        name="username">
     </div>
     <span class="error" [class.show]="!usuarioValido && username.length > 0">
-      Mínimo 8 caracteres com letras e números
+      Mínimo 8 caracteres com letras e números.
     </span>
 
     <label>Senha</label>
-    <div class="input-group">
-      <img src="/assets/icons/block.svg" class="icon" alt="ícone de bloqueio">
-      <input
-        type="password"
-        [(ngModel)]="password"
-        (blur)="verificarCampos()"
-        name="password"
-        placeholder="••••••••">
-    </div>
+<div class="input-group password-group">
+<img src="/assets/icons/block.svg" class="icon" alt="ícone de bloqueio">
+<input
+[type]="mostrarSenha ? 'text' : 'password'"
+maxlength="8"
+[(ngModel)]="password"
+(keydown.space)="$event.preventDefault()"
+(input)="normalizarSenha(); verificarCampos()"
+(blur)="verificarCampos()"
+name="password">
+<img
+[src]="mostrarSenha ? '/assets/icons/olho-fechado.svg' : '/assets/icons/olho.svg'"
+class="toggle-password"
+alt="toggle senha"
+(click)="toggleMostrarSenha()">
+</div>
     <span class="error" [class.show]="!senhaValida && password.length > 0">
-      Mínimo 8 caracteres com letras e números
+      Senha deve conter letras e números (6 a 8 dígitos).
     </span>
 
     <button type="submit" [disabled]="!usuarioValido || !senhaValida">Acessar</button>
