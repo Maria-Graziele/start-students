@@ -1,0 +1,77 @@
+.app-container {
+  min-height: 100vh;
+  background-color: transparent;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.student-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 32px;
+  max-width: 100%;
+  width: 920px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.student-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.btn-voltar {
+  width: 100%;
+  padding: 14px;
+  margin-top: 12px;
+  background-color: #f3f4f6;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-voltar:hover {
+  background-color: #e5e7eb;
+}
+
+.btn-voltar:active {
+  background-color: #d1d5db;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.loading p {
+  font-size: 1rem;
+  color: #6b7280;
+}
+
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: 16px;
+  padding: 20px;
+}
+
+.error-message {
+  font-size: 1rem;
+  color: #dc2626;
+}

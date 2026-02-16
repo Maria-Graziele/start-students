@@ -1,0 +1,187 @@
+<div class="page-wrapper">
+
+  <!-- Header com botão voltar e título -->
+  <div class="page-header">
+    <button class="btn-back" type="button" (click)="onCancel()">
+      <span class="material-icons">arrow_back</span>
+    </button>
+    <h2 class="page-title">{{ titulo }}</h2>
+  </div>
+
+  <!-- Card principal do formulário -->
+  <div class="form-card">
+
+    <!-- Erro geral do backend -->
+    <div *ngIf="errosBackend['geral']" class="alert-error">
+      <span class="material-icons">error_outline</span>
+      {{ errosBackend['geral'] }}
+    </div>
+
+    <form [formGroup]="alunoForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-group">
+        <label class="field-label">Foto do Aluno</label>
+        <app-photo-upload
+          [photoUrl]="fotoUrl"
+          [maxSizeMB]="2"
+          [allowedTypes]="['image/jpeg', 'image/jpg']"
+          (photoSelected)="onFotoSelecionada($event)"
+          (photoError)="onFotoErro($event)">
+        </app-photo-upload>
+      </div>
+
+      <div class="form-group">
+        <label class="field-label" for="nome">
+          Nome Completo
+          <span *ngIf="mode === 'create'" class="required">*</span>
+        </label>
+        <div class="input-wrapper" [class.disabled]="mode === 'edit'">
+          <img src="assets/icons/user.svg" class="input-icon" aria-hidden="true" />
+          <input
+            id="nome"
+            type="text"
+            formControlName="nome"
+            placeholder="Digite o nome do aluno"
+            class="form-input"
+          />
+        </div>
+        <div class="field-error" *ngIf="nome?.invalid && nome?.touched">
+        <span *ngIf="nome?.errors?.['nomeInvalido']">
+          {{ nome?.errors?.['nomeInvalido']}}
+        </span>
+        </div>
+        <div class="field-error" *ngIf="errosBackend['nome']">{{ errosBackend['nome'] }}</div>
+      </div>
+
+      <div class="form-group">
+        <label class="field-label" for="email">
+          Email <span class="required">*</span>
+        </label>
+        <div class="input-wrapper">
+          <img src="assets/icons/email.svg" class="input-icon" aria-hidden="true" />
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            placeholder="aluno@email.com"
+            class="form-input"
+          />
+        </div>
+        <div class="field-error" *ngIf="email?.invalid && email?.touched">
+          <span *ngIf="email?.errors?.['required']">Email é obrigatório</span>
+          <span *ngIf="email?.errors?.['email']">Email inválido</span>
+        </div>
+        <div class="field-error" *ngIf="errosBackend['email']">{{ errosBackend['email'] }}</div>
+      </div>
+
+      <!-- CPF apenas no modo criar -->
+      <div class="form-group" *ngIf="mode === 'create'">
+        <label class="field-label" for="cpf">
+          CPF <span class="required">*</span>
+        </label>
+        <div class="input-wrapper">
+          <img src="assets/icons/cpf.svg" class="input-icon" aria-hidden="true" />
+          <input
+            id="cpf"
+            type="text"
+            formControlName="cpf"
+            placeholder="000.000.000-00"
+            appCpfMask
+            maxlength="14"
+            class="form-input"
+          />
+        </div>
+        <div class="field-error" *ngIf="cpf?.invalid && cpf?.touched">
+          <span *ngIf="cpf?.errors?.['required']">CPF é obrigatório</span>
+        </div>
+        <div class="field-error" *ngIf="errosBackend['cpf']">{{ errosBackend['cpf'] }}</div>
+      </div>
+
+      <div class="form-group">
+        <label class="field-label" for="telefone">
+          Telefone <span class="required">*</span>
+        </label>
+        <div class="input-wrapper">
+          <img src="assets/icons/phone.svg" class="input-icon" aria-hidden="true" />
+          <input
+            id="telefone"
+            type="tel"
+            formControlName="telefone"
+            placeholder="(00) 00000-0000"
+            appPhoneMask
+            maxlength="15"
+            class="form-input"
+          />
+        </div>
+        <div class="field-error" *ngIf="telefone?.invalid && telefone?.touched">
+          <span *ngIf="telefone?.errors?.['required']">Telefone é obrigatório</span>
+        </div>
+        <div class="field-error" *ngIf="errosBackend['telefone']">{{ errosBackend['telefone'] }}</div>
+      </div>
+
+      <!-- Matrícula apenas no modo editar -->
+      <div class="form-group" *ngIf="mode === 'edit'">
+        <label class="field-label" for="matricula">Matrícula</label>
+        <div class="input-wrapper disabled">
+          <img src="assets/icons/hashtag.svg" class="input-icon" aria-hidden="true" />
+          <input
+            id="matricula"
+            type="text"
+            formControlName="matricula"
+            class="form-input"
+            readonly
+          />
+        </div>
+      </div>
+
+      <!-- Status apenas no modo editar -->
+      <div class="form-group" *ngIf="mode === 'edit'">
+        <label class="field-label">Status</label>
+        <div class="status-options">
+          <label class="status-option">
+            <input type="radio" formControlName="status" value="Ativo" />
+            <span>Ativo</span>
+          </label>
+          <label class="status-option">
+            <input type="radio" formControlName="status" value="Inativo" />
+            <span>Inativo</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Botões de ação -->
+      <div class="form-actions">
+        <button
+          type="button"
+          class="btn btn-cancelar"
+          (click)="onCancel()"
+          [disabled]="salvando">
+          Cancelar
+        </button>
+      <button
+  type="submit"
+  class="btn-salvar"
+  [disabled]="
+    salvando ||
+    alunoForm.invalid ||
+    (mode === 'edit' && !houveAlteracaoReal)
+  ">
+  {{ submitButtonText }}
+</button>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- Modal de Confirmação de Cancelamento -->
+  <app-modal
+    [isOpen]="mostrarModalCancelar"
+    title="Novo Aluno"
+    message="Você tem alterações não salvas. Deseja sair?"
+    confirmText="OK"
+    cancelText="Cancelar"
+    (confirm)="confirmarCancelamento()"
+    (close)="fecharModalCancelar()">
+  </app-modal>
+
+</div>

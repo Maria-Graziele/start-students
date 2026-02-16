@@ -1,0 +1,100 @@
+<section class="alunos">
+
+  <div class="header">
+    <h2>Alunos</h2>
+    <!-- Abre tela/rota de criação -->
+    <button type="button" (click)="novoAluno()">Novo Aluno</button>
+  </div>
+
+  <!-- Barra de ferramentas com campo de busca -->
+   <div class="toolbar">
+  <app-search-bar
+  placeholder="Buscar por nome ou matrícula..."
+  (search)="onSearch($event)">
+</app-search-bar>
+</div>
+  <table class="tabela">
+    <thead>
+      <tr>
+        <th>Matrícula</th>
+        <th>Nome</th>
+        <th>Status</th>
+        <!-- Largura fixa para coluna de ações -->
+        <th style="width: 220px;">Ações</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <!-- Linha por aluno paginado -->
+      <tr *ngFor="let aluno of alunos">
+        <td>{{ aluno.matricula }}</td>
+        <td>{{ aluno.nome }}</td>
+
+        <td>
+          <span
+            class="badge"
+            [class.ativo]="aluno.status === 'Ativo'"
+            [class.inativo]="aluno.status === 'Inativo'"
+            [title]="aluno.status"> <!--adiciona tooltips-->
+            {{ aluno.status }}
+          </span>
+        </td>
+
+        <td data-label="Ações">
+          <div class="acoes">
+            <button
+              type="button"
+              class="btn-ver"
+              aria-label="Ver detalhes"
+              title="Ver detalhes"
+              (click)="verDetalhes(aluno)">
+              <img src="assets/icons/olho.svg" alt="" />
+            </button>
+
+            <button
+              type="button"
+              class="btn-editar"
+              aria-label="Editar aluno"
+              title="Editar"
+              (click)="editarAluno(aluno)">
+              <img src="assets/icons/lapis.svg" alt="" />
+            </button>
+
+            <button
+              type="button"
+              class="btn-excluir"
+              aria-label="Excluir aluno"
+              title="Excluir"
+              (click)="excluirAluno(aluno)">
+              <img src="assets/icons/lixo.svg" alt="" />
+            </button>
+          </div>
+        </td>
+      </tr>
+
+      <!-- Linha vazia quando não há resultados e não está carregando -->
+      <tr *ngIf="alunos.length === 0 && !carregando">
+        <td colspan="4" class="empty">Nenhum aluno encontrado.</td>
+      </tr>
+    </tbody>
+  </table>
+<app-pagination
+[currentPage]="paginaAtual"
+[totalPages]="totalPaginas"
+[totalItems]="itensPorPagina"
+(pageChange)="aoMudarPagina($event)">
+</app-pagination>
+  <!--Modal-->
+  <app-modal
+  [isOpen]="mostrarModal"
+  [title]="'Confirmar Exclusão'"
+  [message]="'Deseja realmente excluir o aluno ' + (alunoParaExcluir?.nome || '') + '?'"
+
+  [cancelText]="'Cancelar'"
+  [confirmText]="'Excluir'"
+  (confirm)="confirmarExclusao()"
+  (close)="mostrarModal = false">
+</app-modal>
+
+</section>
+

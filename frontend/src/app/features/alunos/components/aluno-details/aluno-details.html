@@ -1,0 +1,84 @@
+
+<div *ngIf="carregando" class="loading">
+  <p>Carregando dados do aluno...</p>
+</div>
+
+<!-- Erro -->
+<div *ngIf="!carregando && erro" class="error-container">
+  <p class="error-message">{{ erro }}</p>
+  <button class="btn-voltar" (click)="voltarParaLista()">Voltar para Lista</button>
+</div>
+
+<!-- Conteúdo Principal -->
+<div class="app-container" *ngIf="!carregando && aluno">
+  <div class="student-card">
+
+    <!-- Header com botão voltar -->
+    <app-page-header
+      title="Detalhes do Aluno"
+      (back)="voltarParaLista()">
+    </app-page-header>
+
+    <!-- Foto do aluno -->
+    <app-photo-display
+      [photoUrl]="aluno?.foto ?? null"
+      [altText]="'Foto de ' + aluno.nome">
+    </app-photo-display>
+
+    <!-- Formulário com os dados -->
+    <form class="student-form">
+
+      <!-- Nome Completo -->
+      <app-form-field
+        label="Nome Completo"
+        [value]="aluno.nome"
+        icon="assets/icons/user.svg"
+        [readonly]="true">
+      </app-form-field>
+
+      <!-- CPF -->
+      <app-form-field
+        label="CPF"
+        [value]="aluno.cpf"
+        icon="assets/icons/cpf.svg"
+        [readonly]="true">
+      </app-form-field>
+
+      <!-- Email -->
+      <app-form-field
+        label="Email"
+        [value]="aluno.email"
+        icon="assets/icons/email.svg"
+        type="email"
+        [readonly]="true">
+      </app-form-field>
+
+      <!-- Telefone -->
+      <app-form-field
+        label="Telefone"
+        [value]="aluno.telefone"
+        icon="assets/icons/phone.svg"
+        type="tel"
+        [readonly]="true">
+      </app-form-field>
+
+      <!-- Matrícula -->
+      <app-form-field
+        label="Matrícula"
+        [value]="aluno?.matricula ?? null"
+        icon="assets/icons/hashtag.svg"
+        [readonly]="true">
+      </app-form-field>
+
+      <!-- Status -->
+      <app-status-badge
+        label="Status"
+        [status]="aluno?.status ?? 'Inativo'">
+      </app-status-badge>
+
+    </form>
+
+    <!-- Botão Voltar -->
+    <button class="btn-voltar" (click)="voltarParaLista()">Voltar</button>
+  </div>
+</div>
