@@ -45,14 +45,14 @@ public class AlunoService {
         return convertToResponseDTO(aluno);
     }
     @Transactional
-    public AlunoResponseDTO criar(AlunoCreateRequestDTO dto) {
+    public AlunoResponseDTO criar(AlunoCreateRequestDTO dto) throws DuplicateEntryException {
 
         // valida duplicidade
         if (alunoRepository.existsByCpf(dto.getCpf())) {
-            throw new DuplicateEntryException("CPF já cadastrado");
+            throw new DuplicateEntryException("cpf", dto.getCpf());
         }
         if (alunoRepository.existsByEmail(dto.getEmail())) {
-            throw new DuplicateEntryException("Email já cadastrado");
+            throw new DuplicateEntryException("email", dto.getEmail());
         }
 
         Aluno aluno = new Aluno();

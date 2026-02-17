@@ -51,14 +51,22 @@ public class GlobalExceptionHandler {
     // Trata erro de entrada duplicada (CPF, email, matrícula)
     @ExceptionHandler(DuplicateEntryException.class)
     public ResponseEntity<ErrorResponse> handleDuplicateEntry(DuplicateEntryException ex) {
+
+        Map<String, String> errors = new HashMap<>();
+
+        errors.put(ex.getField(), ex.getMessage());
+
         ErrorResponse errorResponse = new ErrorResponse(
                 HttpStatus.CONFLICT.value(),
-                ex.getMessage(),
+                "Erro de duplicidade",
+                errors,
                 LocalDateTime.now()
         );
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
     }
+
+
 
     // Trata erros de argumento ilegal (ex: foto muito grande)
     @ExceptionHandler(IllegalArgumentException.class)
