@@ -2,7 +2,7 @@ import { Pipe, type PipeTransform } from '@angular/core';
 
 // Pipe para formatar CPF
  //Uso no template: {{ aluno.cpf | cpf }}
- //Input: "12345678900" ou "123.456.789-00"  Output: "123.456.789-00"
+ //Input: "12345678900"  Output: "123.456.789-00"
 @Pipe({
   name: 'cpf',
   standalone: true
