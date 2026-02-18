@@ -49,7 +49,7 @@ public class AlunoService {
 
         // valida duplicidade
         if (alunoRepository.existsByCpf(dto.getCpf())) {
-            throw new DuplicateEntryException("cpf", dto.getCpf());
+            throw new DuplicateEntryException("CPF", dto.getCpf());
         }
         if (alunoRepository.existsByEmail(dto.getEmail())) {
             throw new DuplicateEntryException("email", dto.getEmail());

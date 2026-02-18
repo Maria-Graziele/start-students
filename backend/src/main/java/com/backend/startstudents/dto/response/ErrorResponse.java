@@ -12,7 +12,7 @@ public class ErrorResponse {
     private Map<String, String> errors;
     private LocalDateTime timestamp;
 
-    // Construtor completo
+    // Construtor
     public ErrorResponse(int status, String message, Map<String, String> errors, LocalDateTime timestamp) {
         this.status = status;
         this.message = message;
@@ -20,14 +20,14 @@ public class ErrorResponse {
         this.timestamp = timestamp;
     }
 
-    // Construtor sem errors (para erros simples)
+    // Construtor sem errors, para erros simples
     public ErrorResponse(int status, String message, LocalDateTime timestamp) {
         this.status = status;
         this.message = message;
         this.timestamp = timestamp;
     }
 
-    // Getters e Setters
+
     public int getStatus() {
         return status;
     }
