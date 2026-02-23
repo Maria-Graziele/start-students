@@ -1,12 +1,9 @@
 // apenas mostrar foto
 
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-photo-display',
-  standalone: true,
-  imports: [CommonModule],
   template: `
     <div class="photo-container">
       <div class="photo-wrapper">

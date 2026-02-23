@@ -21,7 +21,7 @@
 
     <!-- Foto do aluno -->
     <app-photo-display
-      [photoUrl]="aluno?.foto ?? null"
+      [photoUrl]="aluno.foto"
       [altText]="'Foto de ' + aluno.nome">
     </app-photo-display>
 
@@ -65,7 +65,7 @@
       <!-- Matrícula -->
       <app-form-field
         label="Matrícula"
-        [value]="aluno?.matricula ?? null"
+        [value]="aluno.matricula"
         icon="assets/icons/hashtag.svg"
         [readonly]="true">
       </app-form-field>
@@ -73,7 +73,7 @@
       <!-- Status -->
       <app-status-badge
         label="Status"
-        [status]="aluno?.status ?? 'Inativo'">
+        [status]="aluno.status">
       </app-status-badge>
 
     </form>

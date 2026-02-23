@@ -1,12 +1,9 @@
 // component: cabeçalho/topo da página com título e botão voltar
 
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-page-header',
-  standalone: true,
-  imports: [CommonModule],
   template: `
     <header class="card-header">
       <button

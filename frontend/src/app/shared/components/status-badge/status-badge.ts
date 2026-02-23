@@ -1,12 +1,9 @@
 // exibir o status do aluno, com uma bolinha colorida
 
 import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-status-badge',
-  standalone: true,
-  imports: [CommonModule],
   template: `
     <div class="form-group">
       <label class="form-label">{{ label }}</label>

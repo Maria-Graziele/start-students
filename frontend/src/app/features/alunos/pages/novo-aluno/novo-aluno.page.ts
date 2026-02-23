@@ -2,25 +2,25 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 
-import { AlunoFormComponent } from '../../components/aluno-form/aluno-form';
 import { AlunoService } from '../../services/aluno.service';
-import type { Aluno } from '../../../../shared/models/aluno.model';
+import { Aluno } from '../../../../shared/models/aluno.model';
 
 @Component({
   selector: 'app-novo-aluno-page',
-  standalone: true,
-  imports: [AlunoFormComponent],
   template: `
-    <app-aluno-form
-      mode="create"
-      [errosBackend]="errosBackend"
-      [salvando]="salvando"
-      (submitForm)="onCriar($event)"
-      (cancel)="onCancelar()">
-    </app-aluno-form>
+    <div class="app-container">
+      <app-aluno-form
+        mode="create"
+        [errosBackend]="errosBackend"
+        [salvando]="salvando"
+        (submitForm)="onCriar($event)"
+        (cancel)="onCancelar()">
+      </app-aluno-form>
+    </div>
   `
 })
 export class NovoAlunoPage {
+
   errosBackend: { [key: string]: string } = {};
   salvando: boolean = false;
 
@@ -33,18 +33,18 @@ export class NovoAlunoPage {
     this.salvando = true;
     this.errosBackend = {};
 
-    this.alunoService.criar(aluno).subscribe({
-      next: (alunoCriado) => {
+    this.alunoService.criar(aluno).subscribe(
+      (alunoCriado) => {
         console.log('Aluno cadastrado com sucesso:', alunoCriado);
         this.salvando = false;
         this.router.navigate(['/alunos']);
       },
-      error: (erro: HttpErrorResponse) => {
+      (erro: HttpErrorResponse) => {
         console.error('Erro ao cadastrar aluno:', erro);
         this.salvando = false;
         this.processarErrosBackend(erro);
       }
-    });
+    );
   }
 
   onCancelar(): void {
@@ -52,24 +52,32 @@ export class NovoAlunoPage {
   }
 
   private processarErrosBackend(erro: HttpErrorResponse): void {
-    if (erro.status === 400 && erro.error?.errors) {
-      // Erros de validação (Bean Validation)
+
+    // 400 com erros de validação
+    if (erro.status === 400 && erro.error && erro.error.errors) {
       this.errosBackend = erro.error.errors;
-    } else if (erro.status === 409) {
-      // Erro de duplicidade
-      this.errosBackend = {
-        geral: erro.error?.message || 'Dados duplicados. Verifique CPF, email ou matrícula.'
-      };
-    } else if (erro.status === 400) {
-      // Outros erros de validação
-      this.errosBackend = {
-        geral: erro.error?.message || 'Erro de validação. Verifique os dados.'
-      };
-    } else {
-      // Erro genérico
-      this.errosBackend = {
-        geral: 'Erro ao cadastrar aluno. Tente novamente.'
-      };
+      return;
     }
+
+    // 409 - duplicidade
+    if (erro.status === 409) {
+
+      if (erro.error && erro.error.errors) {
+        this.errosBackend = erro.error.errors;
+      } else {
+        this.errosBackend = {
+          cpf: erro.error && erro.error.message
+            ? erro.error.message
+            : 'CPF já cadastrado'
+        };
+      }
+
+      return;
+    }
+
+    // Outros erros
+    this.errosBackend = {
+      geral: 'Erro ao cadastrar aluno. Tente novamente.'
+    };
   }
 }

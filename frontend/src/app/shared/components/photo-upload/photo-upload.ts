@@ -1,10 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-photo-upload',
-  standalone: true,
-  imports: [CommonModule],
   template: `
     <div class="photo-upload-wrapper">
       <!-- Preview da foto ou placeholder -->
@@ -149,14 +146,16 @@ export class PhotoUploadComponent {
 
   triggerFileInput(): void {
     const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
-    fileInput?.click();
+    if (fileInput) {
+      fileInput.click();
+    }
   }
 
   onFileSelected(event: Event): void {
     this.error = null;
 
     const input = event.target as HTMLInputElement;
-    const file = input.files?.[0];
+    const file = input.files && input.files.length > 0 ? input.files[0] : null;
 
     if (!file) return;
 
@@ -178,8 +177,8 @@ export class PhotoUploadComponent {
 
     // Converte para base64
     const reader = new FileReader();
-    reader.onload = (e: ProgressEvent<FileReader>) => {
-      const base64 = e.target?.result as string;
+    reader.onload = (e: any) => {
+      const base64 = e.target && e.target.result ? e.target.result as string : '';
       this.photoSelected.emit(base64);
     };
     reader.onerror = () => {

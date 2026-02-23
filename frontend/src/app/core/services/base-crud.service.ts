@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -8,9 +8,8 @@ export interface QueryParams {
 
 @Injectable()
 export abstract class BaseCrudService<T> {
-  protected http = inject(HttpClient);
 
-  constructor(protected baseUrl: string) {}
+  constructor(protected http: HttpClient, protected baseUrl: string) {}
 
   getAll(params?: QueryParams): Observable<T[]> {
     let httpParams = new HttpParams();

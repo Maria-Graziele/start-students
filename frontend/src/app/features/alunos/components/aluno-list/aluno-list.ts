@@ -1,37 +1,29 @@
-import { Component, type OnInit, ChangeDetectorRef } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
+import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { Router } from '@angular/router';
-import { AlunoService, type Aluno, type PageResponse } from '../../services/aluno.service';
+import { AlunoService, Aluno, PageResponse } from '../../services/aluno.service';
 import { ModalComponent } from "../../../../shared/components/modal/modal.component";
+import { PaginationComponent } from "../../../../shared/components/pagination/pagination";
+import { SearchBarComponent } from "../../../../shared/components/search-bar/search-bar";
 import { HttpErrorResponse } from "@angular/common/http";
-import { PaginationComponent } from "../../../../shared/components/pagination/pagination.js";
-import { SearchBarComponent } from "../../../../shared/components/search-bar/search-bar.js";
 
 @Component({
   selector: "app-aluno-list",
-  standalone: true,
-  imports: [CommonModule, FormsModule, ModalComponent, PaginationComponent, SearchBarComponent],
   templateUrl: "./aluno-list.html",
-  styleUrls: ["./aluno-list.scss"],
+  styleUrls: ["./aluno-list.scss"]
 })
 export class AlunosComponent implements OnInit {
 
-  // Dados da página atual
   alunos: Aluno[] = [];
+  paginaAtual = 0;
+  itensPorPagina = 5;
+  totalPaginas = 0;
+  totalElementos = 0;
 
-  // Controles de paginação. Backend.
-  paginaAtual: number =0;        // Backend usa 0-based
-  itensPorPagina: number = 5;
-  totalPaginas: number = 0;
-  totalElementos: number = 0;
+  termoBusca = '';
+  carregando = false;
+  erro = '';
 
-  termoBusca: string = '';
-
-  carregando: boolean = false;
-  erro: string = '';
-
-  mostrarModal: boolean = false;
+  mostrarModal = false;
   alunoParaExcluir: Aluno | null = null;
 
   constructor(
@@ -43,6 +35,7 @@ export class AlunosComponent implements OnInit {
   ngOnInit(): void {
     this.carregarAlunos();
   }
+
 
   carregarAlunos(): void {
     this.carregando = true;
@@ -93,7 +86,7 @@ export class AlunosComponent implements OnInit {
   }
 
   confirmarExclusao(): void {
-    if (!this.alunoParaExcluir?.id) {
+    if (!this.alunoParaExcluir || !this.alunoParaExcluir.id) {
       console.error('ID do aluno não encontrado');
       this.mostrarModal = false;
       return;
@@ -156,7 +149,7 @@ export class AlunosComponent implements OnInit {
       if (error.status === 409) {
         alert('Erro: Dados duplicados. Verifique CPF, email ou matrícula.');
       } else if (error.status === 400) {
-        alert('Erro de validação: ' + (error.error?.message || 'Dados inválidos'));
+        alert('Erro de validação: ' + (error.error && error.error.message ? error.error.message : 'Dados inválidos'));
       } else {
         alert('Erro ao atualizar status. Tente novamente.');
       }

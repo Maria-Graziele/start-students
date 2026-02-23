@@ -1,11 +1,9 @@
 .app-container {
-  min-height: 100vh;
-  background-color: transparent;
-  padding: 20px;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  width: 100%;
+  padding: 40px 0;
 }
 
 .student-card {

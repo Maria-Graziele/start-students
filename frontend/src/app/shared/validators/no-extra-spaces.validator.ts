@@ -1,4 +1,4 @@
-import { AbstractControl, type ValidationErrors, type ValidatorFn } from '@angular/forms';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export function noExtraSpacesValidator(): ValidatorFn {
 

@@ -1,12 +1,9 @@
 // component reutilizável, tanto pra editar quanto apenas ler
 
 import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-form-field',
-  standalone: true,
-  imports: [CommonModule],
   template: `
     <div class="form-group">
       <label class="form-label" [for]="id">

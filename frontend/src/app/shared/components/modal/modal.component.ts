@@ -1,11 +1,8 @@
 
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-modal',
-  standalone: true,
-  imports: [CommonModule],
   template: `
     <div class="modal-overlay" *ngIf="isOpen" (click)="onClose()">
       <div class="modal-content" (click)="$event.stopPropagation()">

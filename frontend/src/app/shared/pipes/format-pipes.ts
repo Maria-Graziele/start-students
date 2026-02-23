@@ -1,11 +1,10 @@
-import { Pipe, type PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 
 // Pipe para formatar CPF
  //Uso no template: {{ aluno.cpf | cpf }}
  //Input: "12345678900"  Output: "123.456.789-00"
 @Pipe({
-  name: 'cpf',
-  standalone: true
+  name: 'cpf'
 })
 export class CpfPipe implements PipeTransform {
   transform(value: string | null | undefined): string {
@@ -24,8 +23,7 @@ export class CpfPipe implements PipeTransform {
 
 //Pipe para formatar telefone. Uso no template: {{ aluno.telefone | phone }}
 @Pipe({
-  name: 'phone',
-  standalone: true
+  name: 'phone'
 })
 export class PhonePipe implements PipeTransform {
   transform(value: string | null | undefined): string {

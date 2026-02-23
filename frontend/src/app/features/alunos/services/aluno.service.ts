@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import type { Aluno, PageResponse } from '../../../shared/models/aluno.model';
+import { Aluno, PageResponse } from '../../../shared/models/aluno.model';
 
 // Exportar tipos para outros componentes
-export type { Aluno, PageResponse } from '../../../shared/models/aluno.model';
+export { Aluno, PageResponse } from '../../../shared/models/aluno.model';
 
 @Injectable({
   providedIn: 'root'

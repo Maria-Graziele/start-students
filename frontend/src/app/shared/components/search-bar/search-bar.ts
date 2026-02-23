@@ -1,13 +1,8 @@
 import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 //Componente reutilizável de barra de busca
-
 @Component({
   selector: 'app-search-bar',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
   template: `
     <div class="search-bar">
       <div class="search-input-wrapper">

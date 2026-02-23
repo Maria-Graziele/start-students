@@ -1,11 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 // Componente reutilizável de controles de paginação
 @Component({
   selector: 'app-pagination',
-  standalone: true,
-  imports: [CommonModule],
   template: `
     <div class="pagination-container" *ngIf="totalPages > 1">
 

@@ -1,24 +1,9 @@
-import { Component, type OnInit, ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlunoService, type Aluno } from '../../services/aluno.service';
-
-// Componentes reutilizáveis
-import { PageHeaderComponent } from '../../../../shared/components/page-header/page-header.component';
-import { PhotoDisplayComponent } from '../../../../shared/components/photo-display/photo-display.component';
-import { FormFieldComponent } from '../../../../shared/components/form-field/form-field.component';
-import { StatusBadgeComponent } from '../../../../shared/components/status-badge/status-badge';
+import { AlunoService, Aluno } from '../../services/aluno.service';
 
 @Component({
   selector: 'app-aluno-details',
-  standalone: true,
-  imports: [
-    CommonModule,
-    PageHeaderComponent,
-    PhotoDisplayComponent,
-    FormFieldComponent,
-    StatusBadgeComponent
-  ],
   templateUrl: './aluno-details.html',
   styleUrls: ['./aluno-details.scss']
 })
@@ -57,18 +42,18 @@ export class DetalhesDoAlunoComponent implements OnInit {
     this.erro = '';
     this.cdr.detectChanges();
 
-    this.alunoService.buscarPorId(id).subscribe({
-      next: (aluno: Aluno) => {
+    this.alunoService.buscarPorId(id).subscribe(
+      (aluno: Aluno) => {
         this.aluno = aluno;
         this.carregando = false;
         this.cdr.detectChanges();
       },
-      error: (erro) => {
+      (erro) => {
         this.erro = 'Aluno não encontrado.';
         this.carregando = false;
         this.cdr.detectChanges();
       }
-    });
+    );
   }
 
   voltarParaLista() {

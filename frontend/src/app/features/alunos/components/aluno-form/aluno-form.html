@@ -1,15 +1,15 @@
 <div class="page-wrapper">
 
-  <!-- Header com botão voltar e título -->
-  <div class="page-header">
-    <button class="btn-back" type="button" (click)="onCancel()">
-      <span class="material-icons">arrow_back</span>
-    </button>
-    <h2 class="page-title">{{ titulo }}</h2>
-  </div>
-
   <!-- Card principal do formulário -->
   <div class="form-card">
+
+    <!-- Header com botão voltar e título -->
+    <div class="page-header">
+      <button class="btn-back" type="button" (click)="onCancel()">
+          <span class="material-icons">arrow_back</span>
+      </button>
+      <h2 class="page-title">{{ titulo }}</h2>
+    </div>
 
     <!-- Erro geral do backend -->
     <div *ngIf="errosBackend['geral']" class="alert-error">
@@ -24,7 +24,7 @@
         <app-photo-upload
           [photoUrl]="fotoUrl"
           [maxSizeMB]="2"
-          [allowedTypes]="['image/jpeg', 'image/jpg']"
+          [allowedTypes]="['image/jpeg', 'image/jpg', 'image/png']"
           (photoSelected)="onFotoSelecionada($event)"
           (photoError)="onFotoErro($event)">
         </app-photo-upload>
@@ -45,10 +45,10 @@
             class="form-input"
           />
         </div>
-        <div class="field-error" *ngIf="nome?.invalid && nome?.touched">
-        <span *ngIf="nome?.errors?.['nomeInvalido']">
-          {{ nome?.errors?.['nomeInvalido']}}
-        </span>
+        <div class="field-error" *ngIf="nome && nome.invalid && nome.touched">
+          <span *ngIf="nome.errors && nome.errors['nomeInvalido']">
+            {{ nome.errors['nomeInvalido']}}
+          </span>
         </div>
         <div class="field-error" *ngIf="errosBackend['nome']">{{ errosBackend['nome'] }}</div>
       </div>
@@ -67,9 +67,9 @@
             class="form-input"
           />
         </div>
-        <div class="field-error" *ngIf="email?.invalid && email?.touched">
-          <span *ngIf="email?.errors?.['required']">Email é obrigatório</span>
-          <span *ngIf="email?.errors?.['email']">Email inválido</span>
+        <div class="field-error" *ngIf="email && email.invalid && email.touched">
+          <span *ngIf="email.errors && email.errors['required']">Email é obrigatório</span>
+          <span *ngIf="email.errors && email.errors['email']">Email inválido</span>
         </div>
         <div class="field-error" *ngIf="errosBackend['email']">{{ errosBackend['email'] }}</div>
       </div>
@@ -91,8 +91,8 @@
             class="form-input"
           />
         </div>
-        <div class="field-error" *ngIf="cpf?.invalid && cpf?.touched">
-          <span *ngIf="cpf?.errors?.['required']">CPF é obrigatório</span>
+        <div class="field-error" *ngIf="cpf && cpf.invalid && cpf.touched">
+          <span *ngIf="cpf.errors && cpf.errors['required']">CPF é obrigatório</span>
         </div>
         <div class="field-error" *ngIf="errosBackend['cpf']">{{ errosBackend['cpf'] }}</div>
       </div>
@@ -113,8 +113,8 @@
             class="form-input"
           />
         </div>
-        <div class="field-error" *ngIf="telefone?.invalid && telefone?.touched">
-          <span *ngIf="telefone?.errors?.['required']">Telefone é obrigatório</span>
+        <div class="field-error" *ngIf="telefone && telefone.invalid && telefone.touched">
+          <span *ngIf="telefone.errors && telefone.errors['required']">Telefone é obrigatório</span>
         </div>
         <div class="field-error" *ngIf="errosBackend['telefone']">{{ errosBackend['telefone'] }}</div>
       </div>

@@ -1,35 +1,18 @@
-body, html {
+html, body {
   height: 100%;
-  width: 100%;
+  margin: 0;
 }
 
-:host {
-  display: flex;
-  flex-direction: column;
+.app-main {
   min-height: 100vh;
+  background-color: #ffffff;
 }
-
-nav {
-  background: #f7fafc;
+.app-container {
+  min-height: 100vh;
+  background-color: transparent;
   padding: 20px;
-  border-bottom: 1px solid #e2e8f0;
-
-  a {
-    text-decoration: none;
-    color: #2d3748;
-    font-weight: 600;
-    transition: color 0.2s ease;
-
-    &:hover,
-    &.active {
-      color: #e53e3e;
-    }
-  }
-}
-
-router-outlet {
-  flex: 1;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: flex-start;
+  width: 100%;
 }

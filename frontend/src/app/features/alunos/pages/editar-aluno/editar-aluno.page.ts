@@ -1,92 +1,47 @@
-import { Component, type OnInit, type OnDestroy} from '@angular/core';
-import { ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
-import { AlunoFormComponent } from '../../components/aluno-form/aluno-form';
+
 import { AlunoService } from '../../services/aluno.service';
-import type { Aluno } from '../../../../shared/models/aluno.model';
+import { Aluno } from '../../../../shared/models/aluno.model';
 
 @Component({
   selector: 'app-editar-aluno-page',
-  standalone: true,
-  imports: [CommonModule, AlunoFormComponent],
   template: `
-    <div *ngIf="erro" class="error-container">
-      <p>{{ erro }}</p>
-      <button (click)="voltar()" class="btn-voltar">Voltar para lista</button>
+    <div class="app-container">
+
+      <div *ngIf="erro" class="error-container">
+        <p>{{ erro }}</p>
+        <button (click)="voltar()" class="btn-voltar">Voltar para lista</button>
+      </div>
+
+      <div *ngIf="!aluno && !erro" class="loading-container">
+        <div class="spinner"></div>
+        <p>Carregando aluno..</p>
+      </div>
+
+      <app-aluno-form
+        *ngIf="aluno"
+        mode="edit"
+        [aluno]="aluno"
+        [errosBackend]="errosBackend"
+        [salvando]="salvando"
+        (submitForm)="onAtualizar($event)"
+        (cancel)="onCancelar()">
+      </app-aluno-form>
+
     </div>
-
-    <div *ngIf="!aluno && !erro" class="loading-container">
-      <div class="spinner"></div>
-      <p>Carregando aluno..</p>
-    </div>
-
-    <app-aluno-form
-      *ngIf="aluno"
-      mode="edit"
-      [aluno]="aluno"
-      [errosBackend]="errosBackend"
-      [salvando]="salvando"
-      (submitForm)="onAtualizar($event)"
-      (cancel)="onCancelar()">
-    </app-aluno-form>
-  `,
-  styles: [`
-    .loading-container,
-    .error-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 400px;
-      padding: 2rem;
-    }
-
-    .spinner {
-      width: 50px;
-      height: 50px;
-      border: 4px solid #f3f3f3;
-      border-top: 4px solid #007bff;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin-bottom: 1rem;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .error-container p {
-      color: #dc3545;
-      font-size: 1.125rem;
-      margin-bottom: 1rem;
-    }
-
-    .btn-voltar {
-      padding: 0.75rem 1.5rem;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1rem;
-    }
-
-    .btn-voltar:hover {
-      background-color: #0056b3;
-    }
-  `]
+  `
 })
 export class EditarAlunoPage implements OnInit, OnDestroy {
+
   aluno: Aluno | null = null;
   errosBackend: { [key: string]: string } = {};
   salvando: boolean = false;
   erro: string = '';
 
-  private routeSub!: Subscription;
+  private routeSub: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -96,39 +51,40 @@ export class EditarAlunoPage implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-  console.log('ngOnInit chamado');
 
-  this.routeSub = this.route.paramMap.subscribe(params => {
-    console.log('paramMap emitiu:', params);
-    const id = Number(params.get('id'));
-    console.log('id extraído:', id);
+    this.routeSub = this.route.paramMap.subscribe(function(params) {
 
-    if (!id) {
-      console.log('id inválido, saindo');
-      return;
-    }
+      var id = Number(params.get('id'));
 
-    this.aluno = null;
-    this.erro = '';
-
-    this.alunoService.buscarPorId(id).subscribe({
-      next: (aluno: Aluno) => {
-        this.aluno = aluno;
-        this.cdr.detectChanges();
-      },
-      error: (erro: HttpErrorResponse) => {
-        this.erro = 'Erro ao carregar aluno';
-        this.cdr.detectChanges();
+      if (!id) {
+        return;
       }
-    });
-  });
-}
+
+      this.aluno = null;
+      this.erro = '';
+
+      this.alunoService.buscarPorId(id).subscribe(
+        function(aluno: Aluno) {
+          this.aluno = aluno;
+          this.cdr.detectChanges();
+        }.bind(this),
+        function(erro: HttpErrorResponse) {
+          this.erro = 'Erro ao carregar aluno';
+          this.cdr.detectChanges();
+        }.bind(this)
+      );
+
+    }.bind(this));
+  }
 
   ngOnDestroy(): void {
-    this.routeSub?.unsubscribe();
+    if (this.routeSub) {
+      this.routeSub.unsubscribe();
+    }
   }
 
   onAtualizar(alunoAtualizado: Aluno): void {
+
     if (!alunoAtualizado.id) {
       console.error('ID do aluno não encontrado');
       return;
@@ -137,16 +93,16 @@ export class EditarAlunoPage implements OnInit, OnDestroy {
     this.salvando = true;
     this.errosBackend = {};
 
-    this.alunoService.atualizar(alunoAtualizado.id, alunoAtualizado).subscribe({
-      next: (aluno) => {
+    this.alunoService.atualizar(alunoAtualizado.id, alunoAtualizado).subscribe(
+      function() {
         this.salvando = false;
         this.router.navigate(['/alunos']);
-      },
-      error: (erro: HttpErrorResponse) => {
+      }.bind(this),
+      function(erro: HttpErrorResponse) {
         this.salvando = false;
         this.processarErrosBackend(erro);
-      }
-    });
+      }.bind(this)
+    );
   }
 
   onCancelar(): void {
@@ -158,17 +114,25 @@ export class EditarAlunoPage implements OnInit, OnDestroy {
   }
 
   private processarErrosBackend(erro: HttpErrorResponse): void {
-    if (erro.status === 400 && erro.error?.errors) {
+
+    if (erro.status === 400 && erro.error && erro.error.errors) {
       this.errosBackend = erro.error.errors;
-    } else if (erro.status === 409) {
+    }
+    else if (erro.status === 409) {
       this.errosBackend = {
-        geral: erro.error?.message || 'Dados duplicados. Verifique CPF, email ou matrícula.'
+        geral: erro.error && erro.error.message
+          ? erro.error.message
+          : 'Dados duplicados. Verifique CPF, email ou matrícula.'
       };
-    } else if (erro.status === 400) {
+    }
+    else if (erro.status === 400) {
       this.errosBackend = {
-        geral: erro.error?.message || 'Erro de validação. Verifique os dados.'
+        geral: erro.error && erro.error.message
+          ? erro.error.message
+          : 'Erro de validação. Verifique os dados.'
       };
-    } else {
+    }
+    else {
       this.errosBackend = {
         geral: 'Erro ao atualizar aluno. Tente novamente.'
       };
