@@ -1,59 +1,53 @@
-🎓 StartStudents – Sistema de Cadastro de Alunos
+
+# 🎓 StartStudents – Fullstack Student Management System
+
 <p align="center">
 
 <img src="https://img.shields.io/github/last-commit/Maria-Graziele/start-students?style=for-the-badge" />
 <img src="https://img.shields.io/github/languages/top/Maria-Graziele/start-students?style=for-the-badge" />
 <img src="https://img.shields.io/github/repo-size/Maria-Graziele/start-students?style=for-the-badge" />
 <img src="https://img.shields.io/github/issues/Maria-Graziele/start-students?style=for-the-badge" />
-<img src="https://img.shields.io/github/license/Maria-Graziele/start-students?style=for-the-badge" />
 <img src="https://img.shields.io/badge/Java-17-ED8B00?style=for-the-badge&logo=java&logoColor=white" />
 <img src="https://img.shields.io/badge/Spring_Boot-Backend-6DB33F?style=for-the-badge&logo=springboot&logoColor=white" />
 <img src="https://img.shields.io/badge/Angular-8-DD0031?style=for-the-badge&logo=angular&logoColor=white" />
 <img src="https://img.shields.io/badge/PostgreSQL-Database-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" />
 
 </p>
-📌 Descrição
 
-O StartStudents é uma aplicação Fullstack desenvolvida para gerenciamento completo de alunos, implementando operações CRUD com arquitetura organizada, validações robustas e testes automatizados tanto no backend quanto no frontend.
+---
 
-O projeto aplica boas práticas de desenvolvimento, separação de responsabilidades e estrutura escalável.
+## 📌 About the Project
 
-⸻
+**StartStudents** is a Fullstack application designed for complete student management.
+The system implements full CRUD operations with clean architecture, validation rules,
+exception handling, pagination and automated tests on both backend and frontend.
 
-🎯 Objetivo
+This project demonstrates strong knowledge in:
 
-Desenvolver um sistema completo de cadastro de alunos aplicando:
-	•	Arquitetura em camadas
-	•	Boas práticas REST
-	•	DTO Pattern
-	•	Tratamento global de exceções
-	•	Validações customizadas
-	•	Testes automatizados
-	•	Organização por features no Angular
+- REST API development
+- Layered architecture
+- DTO pattern
+- Global exception handling
+- Frontend modular organization
+- Unit testing (backend and frontend)
 
-⸻
+---
 
-🛠 Tecnologias Utilizadas
+## 🏗 System Architecture
 
-🔹 Backend
-	•	Java
-	•	Spring Boot
-	•	Spring Data JPA
-	•	PostgreSQL
-	•	Maven
-	•	JUnit
-	•	Mockito
+### 🔹 Backend Architecture (Spring Boot)
 
-🔹 Frontend
-	•	Angular 8
-	•	TypeScript
-	•	SCSS
-	•	Jasmine
-	•	Karma
+Layered structure:
 
-⸻
+Controller → Service → Repository → Database
 
-🏗 Arquitetura do Backend
+- Controllers: REST endpoints
+- Services: Business rules
+- Repository: Data access (Spring Data JPA)
+- DTOs: Request/Response data transfer
+- GlobalExceptionHandler: Centralized error handling
+
+Project structure:
 
 src/main/java/com.backend.startstudents
 ├── config
@@ -66,16 +60,20 @@ src/main/java/com.backend.startstudents
 ├── repository
 └── service
 
-✔ Estrutura aplicada:
-	•	Controller → Camada de exposição da API
-	•	Service → Regras de negócio
-	•	Repository → Persistência de dados
-	•	DTO → Controle de entrada e saída
-	•	Exception → Tratamento global de erros
+Test structure:
 
-⸻
+src/test/java/com.backend.startstudents
+├── controller
+├── service
+├── repository
+└── exception
 
-🎨 Estrutura do Frontend
+---
+
+### 🔹 Frontend Architecture (Angular 8)
+
+Organized by features and shared modules.
+
 src/app
 ├── core
 ├── features
@@ -87,102 +85,130 @@ src/app
 │   ├── validators
 │   └── utils
 
-✔ Organização:
-	•	Estrutura baseada em features
-	•	Componentes reutilizáveis
-	•	Diretivas customizadas (CPF, telefone)
-	•	Validações personalizadas
-	•	Separação clara de responsabilidades
+Highlights:
+- Feature-based organization
+- Reusable shared components
+- Custom directives (CPF and phone mask)
+- Custom validators
+- Unit tests with Jasmine + Karma
 
-⸻
+---
 
-🚀 Funcionalidades
-	•	✅ Cadastro de aluno
-	•	✅ Atualização de aluno
-	•	✅ Exclusão de aluno
-	•	✅ Listagem com paginação
-	•	✅ Busca
-	•	✅ Upload de foto
-	•	✅ Tratamento global de erros
-	•	✅ Validações customizadas
-	•	✅ Testes unitários no backend
-	•	✅ Testes unitários no frontend
+## 🚀 Features
 
-⸻
+- Create student
+- Update student
+- Delete student
+- List students with pagination
+- Search functionality
+- Photo upload and display
+- Custom validations
+- Global error handling
+- Unit tests (Backend and Frontend)
 
-🧪 Testes Automatizados
+---
 
-🔹 Backend
-	•	JUnit
-	•	Mockito
-	•	Testes por camada:
-	•	Controller
-	•	Service
-	•	Repository
-	•	Exception Handler
+## 🛠 Technologies
 
-Executar:
-mvn test
+### Backend
+- Java 17
+- Spring Boot
+- Spring Data JPA
+- PostgreSQL
+- Maven
+- JUnit
+- Mockito
 
-⸻
+### Frontend
+- Angular 8
+- TypeScript
+- SCSS
+- Jasmine
+- Karma
 
-🔹 Frontend
-	•	Jasmine
-	•	Karma
+---
 
-Executar:
-ng test
+## 🗄 Database
 
-⸻
+- PostgreSQL
+- JPA Entity mapping
+- Auto-generated ID
+- Column constraints and validations
 
-⚙️ Como Executar o Projeto
+---
 
-🔹 Backend
+## ⚙️ How to Run the Project
 
-1️⃣ Criar banco PostgreSQL
+### 🔹 Backend
+
+1. Create PostgreSQL database:
+
 CREATE DATABASE startstudents;
 
-2️⃣ Configurar application.properties:
-spring.datasource.url=jdbc:postgresql://localhost:5432/startstudents
-spring.datasource.username=seu_usuario
-spring.datasource.password=sua_senha
+2. Configure application.properties:
 
-3️⃣ Rodar aplicação:
+spring.datasource.url=jdbc:postgresql://localhost:5432/startstudents
+spring.datasource.username=your_user
+spring.datasource.password=your_password
+
+3. Run:
+
 mvn clean install
 mvn spring-boot:run
 
-API disponível em:
+Backend available at:
 http://localhost:8080
 
-⸻
+Run tests:
+mvn test
 
-🔹 Frontend
+---
 
-Instalar dependências:
+### 🔹 Frontend
+
+Install dependencies:
+
 npm install
 
-Rodar aplicação:
+Run application:
+
 ng serve
 
-Aplicação disponível em:
+Frontend available at:
 http://localhost:4200
 
-⸻
+Run tests:
+ng test
 
-📊 Diferenciais do Projeto
-	•	Arquitetura limpa e organizada
-	•	Separação de responsabilidades
-	•	Uso de DTOs para segurança da API
-	•	Tratamento global de exceções
-	•	Validações customizadas
-	•	Código escalável
-	•	Testes automatizados no backend e frontend
-	•	Estrutura preparada para crescimento
+---
 
-⸻
+## 🧪 Testing Strategy
 
-👩‍💻 Desenvolvido por
+Backend:
+- Unit tests per layer
+- Mockito for dependency mocking
+- Validation and exception scenarios covered
 
-Maria Graziele
-Desenvolvedora Fullstack Java + Angular
+Frontend:
+- Component tests
+- Validation tests
+- Service tests
 
+---
+
+## 📈 Project Highlights
+
+- Clean and scalable architecture
+- Separation of responsibilities
+- DTO pattern for secure API communication
+- Centralized exception handling
+- Organized frontend structure
+- Automated testing on both layers
+- Ready for CI/CD integration
+
+---
+
+## 👩‍💻 Author
+
+Maria Graziele  
+Fullstack Developer – Java & Angular
