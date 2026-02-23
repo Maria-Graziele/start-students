@@ -1,18 +1,10 @@
+# 🎓 Start Students
 
-# 🎓 StartStudents – Fullstack Student Management System
-
-<p align="center">
-
-<img src="https://img.shields.io/github/last-commit/Maria-Graziele/start-students?style=for-the-badge" />
-<img src="https://img.shields.io/github/languages/top/Maria-Graziele/start-students?style=for-the-badge" />
-<img src="https://img.shields.io/github/repo-size/Maria-Graziele/start-students?style=for-the-badge" />
-<img src="https://img.shields.io/github/issues/Maria-Graziele/start-students?style=for-the-badge" />
-<img src="https://img.shields.io/badge/Java-17-ED8B00?style=for-the-badge&logo=java&logoColor=white" />
-<img src="https://img.shields.io/badge/Spring_Boot-Backend-6DB33F?style=for-the-badge&logo=springboot&logoColor=white" />
-<img src="https://img.shields.io/badge/Angular-8-DD0031?style=for-the-badge&logo=angular&logoColor=white" />
-<img src="https://img.shields.io/badge/PostgreSQL-Database-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" />
-
-</p>
+![Java](https://img.shields.io/badge/Java-17-orange)
+![Spring Boot](https://img.shields.io/badge/SpringBoot-3.x-brightgreen)
+![Angular](https://img.shields.io/badge/Angular-8-red)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
 ---
 
@@ -33,23 +25,45 @@ This project demonstrates strong knowledge in:
 
 ---
 
-## 🏗 System Architecture
+## 🚀 Tech Stack
 
-### 🔹 Backend Architecture (Spring Boot)
+### Backend
+- Java 17
+- Spring Boot
+- Spring Data JPA
+- PostgreSQL
+- Maven
+- JUnit 5
+- Mockito
 
-Layered structure:
+### Frontend
+- Angular 8
+- TypeScript
+- Jasmine + Karma
+- Bootstrap
+
+---
+
+## 🏗️ Architecture
+
+The project follows a layered architecture pattern:
 
 Controller → Service → Repository → Database
 
-- Controllers: REST endpoints
-- Services: Business rules
-- Repository: Data access (Spring Data JPA)
-- DTOs: Request/Response data transfer
-- GlobalExceptionHandler: Centralized error handling
+- **Controller**: REST endpoints
+- **Service**: Business rules
+- **Repository**: Data access with Spring Data JPA
+- **DTOs**: Request/Response data transfer
+- **GlobalExceptionHandler**: Centralized error handling
 
-Project structure:
+---
 
-src/main/java/com.backend.startstudents
+## 📂 Project Structure
+
+### Backend
+
+```
+src/main/java/com/backend/startstudents
 ├── config
 ├── controller
 ├── dto
@@ -59,152 +73,96 @@ src/main/java/com.backend.startstudents
 ├── model
 ├── repository
 └── service
+```
 
-Test structure:
+### Backend Tests
 
-src/test/java/com.backend.startstudents
+```
+src/test/java/com/backend/startstudents
 ├── controller
 ├── service
 ├── repository
 └── exception
+```
 
----
+### Frontend
 
-### 🔹 Frontend Architecture (Angular 8)
-
-Organized by features and shared modules.
-
+```
 src/app
 ├── core
 ├── features
-│   ├── alunos
+│   ├── students
 │   └── auth
 ├── shared
 │   ├── components
 │   ├── directives
 │   ├── validators
 │   └── utils
-
-Highlights:
-- Feature-based organization
-- Reusable shared components
-- Custom directives (CPF and phone mask)
-- Custom validators
-- Unit tests with Jasmine + Karma
+```
 
 ---
 
-## 🚀 Features
+## ✨ Features
 
-- Create student
-- Update student
-- Delete student
-- List students with pagination
-- Search functionality
-- Photo upload and display
-- Custom validations
+- Student registration
+- Paginated listing
+- Update student data
+- Delete students
+- Custom validators (CPF and phone mask)
 - Global error handling
-- Unit tests (Backend and Frontend)
+- Backend and frontend unit tests
 
 ---
 
-## 🛠 Technologies
+## ⚙️ How to Run
 
 ### Backend
-- Java 17
-- Spring Boot
-- Spring Data JPA
-- PostgreSQL
-- Maven
-- JUnit
-- Mockito
 
-### Frontend
-- Angular 8
-- TypeScript
-- SCSS
-- Jasmine
-- Karma
+```bash
+./mvnw spring-boot:run
+```
 
----
+or
 
-## 🗄 Database
-
-- PostgreSQL
-- JPA Entity mapping
-- Auto-generated ID
-- Column constraints and validations
-
----
-
-## ⚙️ How to Run the Project
-
-### 🔹 Backend
-
-1. Create PostgreSQL database:
-
-CREATE DATABASE startstudents;
-
-2. Configure application.properties:
-
-spring.datasource.url=jdbc:postgresql://localhost:5432/startstudents
-spring.datasource.username=your_user
-spring.datasource.password=your_password
-
-3. Run:
-
+```bash
 mvn clean install
 mvn spring-boot:run
+```
 
-Backend available at:
-http://localhost:8080
+### Frontend
 
-Run tests:
-mvn test
-
----
-
-### 🔹 Frontend
-
-Install dependencies:
-
+```bash
 npm install
-
-Run application:
-
 ng serve
+```
 
-Frontend available at:
-http://localhost:4200
+Application will be available at:
 
-Run tests:
+- Backend: http://localhost:8080
+- Frontend: http://localhost:4200
+
+---
+
+## 🧪 Running Tests
+
+### Backend
+```bash
+mvn clean test
+```
+
+### Frontend
+```bash
 ng test
+```
 
 ---
 
-## 🧪 Testing Strategy
+## 📌 Future Improvements
 
-Backend:
-- Unit tests per layer
-- Mockito for dependency mocking
-- Validation and exception scenarios covered
-
-Frontend:
-- Component tests
-- Validation tests
-- Service tests
-
----
-
-## 📈 Project Highlights
-
-- Clean and scalable architecture
-- Separation of responsibilities
-- DTO pattern for secure API communication
-- Centralized exception handling
-- Organized frontend structure
-- Automated testing on both layers
-- Ready for CI/CD integration
+- JWT Authentication
+- Docker containerization
+- Cloud deployment
+- CI/CD with GitHub Actions
 
 ---
 
