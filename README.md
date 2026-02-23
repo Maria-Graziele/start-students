@@ -161,3 +161,4 @@ ng test
 
 Maria Graziele  
 Fullstack Developer – Java & Angular
+This project was developed for study and professional practice purposes.
