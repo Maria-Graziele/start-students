@@ -14,15 +14,6 @@
 The system implements full CRUD operations with clean architecture, validation rules,
 exception handling, pagination and automated tests on both backend and frontend.
 
-This project demonstrates strong knowledge in:
-
-- REST API development
-- Layered architecture
-- DTO pattern
-- Global exception handling
-- Frontend modular organization
-- Unit testing (backend and frontend)
-
 ---
 
 ## 🚀 Tech Stack
