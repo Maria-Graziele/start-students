@@ -160,5 +160,6 @@ ng test
 ## 👩‍💻 Author
 
 Maria Graziele  
-Fullstack Developer – Java & Angular
+Full Stack Developer  
 This project was developed for study and professional practice purposes.
+
